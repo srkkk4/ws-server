@@ -9,7 +9,9 @@ function add(obj){
     fs.readFile('data.json','utf-8',(err,data)=>{
         if (err) throw err;
         let res = JSON.parse(data);
-        res.push(obj);
+        var stamp= new Date().getTime() + 8 * 60 * 60 * 1000;
+        var realtime = new Date(stamp).toISOString().replace(/T/, ' ').replace(/\..+/, '').substring(0, 19);
+        res.push([realtime,obj]);
         fs.writeFile('data.json',JSON.stringify(res),err=>{
             if (err) throw err;
             console.log('增添：'+obj);
